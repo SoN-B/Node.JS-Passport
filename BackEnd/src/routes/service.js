@@ -10,20 +10,27 @@ exports.home = (req, res) => {
     });
 };
 
-exports.login = (req, res) => {
-    console.log("/auth/naver");
+exports.login_naver = (req, res) => {
+    console.log("/login router 실행");
 };
 
-exports.login_naver = (req, res) => {
+exports.login_naver_callback = (req, res) => {
     passport.authenticate("naver", (err, user) => {
         console.log("passport.authenticate(naver)실행");
 
         if (!user) {
-            res.redirect("/login");
+            return res.status(400).json({
+                message: "Naver user not found.",
+                code: 400,
+            });
         }
         req.logIn(user, (err) => {
             console.log("naver/callback user : ", user);
-            res.redirect("/");
+            return res.status(200).json({
+                message: "Naver login success.",
+                code: 200,
+                user: user,
+            });
         });
     })(req, res);
 };

@@ -1,3 +1,5 @@
+"use strict";
+
 var NaverStrategy = require("passport-naver").Strategy;
 var passport = require("passport");
 const config = require("config");
@@ -18,8 +20,7 @@ passport.use(
                     provider: "naver",
                     naver: profile._json,
                 };
-                console.log("user=");
-                console.log(user);
+                console.log("user : ", user);
                 return done(null, user);
             });
         }
