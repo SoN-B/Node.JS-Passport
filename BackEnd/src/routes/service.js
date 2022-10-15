@@ -41,6 +41,9 @@ exports.logout = (req, res) => {
         if (err) {
             return next(err);
         }
-        res.redirect("/");
+        return res.status(200).json({
+            message: "Logout success.",
+            code: 200,
+        });
     });
 };
