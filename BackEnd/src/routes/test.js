@@ -9,8 +9,8 @@ const ctrl = require("./service");
 
 router.get("/", ctrl.home);
 
-router.get("/login", passport.authenticate("naver", null), ctrl.login_naver);
-router.get("/auth/naver/callback", ctrl.login_naver_callback);
+router.get("/login/naver", passport.authenticate("naver", null), ctrl.login_naver);
+router.get("/login/naver/callback", ctrl.login_naver_callback);
 
 router.get("/logout", ctrl.logout);
 
