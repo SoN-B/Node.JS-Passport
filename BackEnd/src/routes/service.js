@@ -1,7 +1,7 @@
 "use strict";
 
-var naver = require("../../config/naverStrategy");
-var kakao = require("../../config/kakaoStrategy");
+var naver = require("../passport/naverStrategy");
+var kakao = require("../passport/kakaoStrategy");
 var fs = require("fs");
 
 exports.home = (req, res) => {
