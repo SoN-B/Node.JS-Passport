@@ -1,7 +1,7 @@
 "use strict";
 
 const passport = require("passport");
-var fs = require("fs");
+const fs = require("fs");
 
 exports.home = (req, res) => {
     fs.readFile("test.html", (error, data) => {

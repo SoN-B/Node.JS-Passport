@@ -1,7 +1,7 @@
 "use strict";
 
-var KakaoStrategy = require("passport-kakao").Strategy;
-var passport = require("passport");
+const KakaoStrategy = require("passport-kakao").Strategy;
+const passport = require("passport");
 const config = require("config");
 
 module.exports = () => {

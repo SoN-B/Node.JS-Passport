@@ -1,7 +1,7 @@
 "use strict";
 
-var NaverStrategy = require("passport-naver").Strategy;
-var passport = require("passport");
+const NaverStrategy = require("passport-naver").Strategy;
+const passport = require("passport");
 const config = require("config");
 
 module.exports = () => {

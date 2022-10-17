@@ -3,7 +3,7 @@
 const express = require("express");
 const router = express.Router();
 
-var passport = require("passport");
+const passport = require("passport");
 
 const ctrl = require("./service");
 

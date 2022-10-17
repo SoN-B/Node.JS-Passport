@@ -1,15 +1,15 @@
 "use strict";
 
 // 모듈 선언
-var express = require("express");
-var app = express();
+const express = require("express");
+const app = express();
 
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const config = require("config");
-var passport = require("passport");
 const passportConfig = require("./src/passport");
-var session = require("express-session");
+const passport = require("passport");
+const session = require("express-session");
 
 // 웹세팅
 app.use(bodyParser.json());
@@ -20,6 +20,7 @@ app.use(cors());
 app.use(session({ secret: "MySecret", resave: true, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
+
 passportConfig();
 
 // app.use(function (req, res) {
