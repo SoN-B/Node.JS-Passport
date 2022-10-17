@@ -1,7 +1,6 @@
 "use strict";
 
-var naver = require("../passport/naverStrategy");
-var kakao = require("../passport/kakaoStrategy");
+const passport = require("passport");
 var fs = require("fs");
 
 exports.home = (req, res) => {
@@ -16,7 +15,7 @@ exports.login_naver = (req, res) => {
 };
 
 exports.login_naver_callback = (req, res) => {
-    naver.authenticate("naver", (err, user) => {
+    passport.authenticate("naver", (err, user) => {
         console.log("passport.authenticate(naver)실행");
 
         if (!user) {
@@ -41,7 +40,7 @@ exports.login_kakao = (req, res) => {
 };
 
 exports.login_kakao_callback = (req, res) => {
-    kakao.authenticate("kakao", (err, user) => {
+    passport.authenticate("kakao", (err, user) => {
         console.log("passport.authenticate(kakao)실행");
 
         if (!user) {
