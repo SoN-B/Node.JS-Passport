@@ -19,9 +19,9 @@ exports.login_naver_callback = (req, res) => {
         console.log("passport.authenticate(naver)실행");
 
         if (!user) {
-            return res.status(400).json({
+            return res.status(404).json({
                 message: "Naver user not found.",
-                code: 400,
+                code: 404,
             });
         }
         req.logIn(user, (err) => {
@@ -44,9 +44,9 @@ exports.login_kakao_callback = (req, res) => {
         console.log("passport.authenticate(kakao)실행");
 
         if (!user) {
-            return res.status(400).json({
+            return res.status(404).json({
                 message: "Kakao user not found.",
-                code: 400,
+                code: 404,
             });
         }
         req.logIn(user, (err) => {
