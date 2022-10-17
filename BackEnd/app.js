@@ -7,7 +7,7 @@ var app = express();
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const config = require("config");
-var passport = require("./config/passport");
+var passport = require("passport");
 var session = require("express-session");
 
 // 웹세팅
