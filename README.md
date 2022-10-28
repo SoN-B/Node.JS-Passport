@@ -17,6 +17,10 @@
     "express-session": "^1.17.3",
     "passport": "^0.6.0",
     "passport-kakao": "^1.0.1",
-    "passport-naver": "^1.0.6"
+    "passport-naver": "^1.0.6",
+    "mysql": "^2.18.1",
+    "mysql2": "^2.3.3",
+    "sequelize": "^6.25.3",
+    "sequelize-cli": "^6.5.2"
   }
 ```
