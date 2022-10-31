@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.1.0",
     "body-parser": "^1.20.1",
     "config": "^3.3.8",
     "cors": "^2.8.5",
@@ -19,6 +20,7 @@
     "mysql2": "^2.3.3",
     "passport": "^0.6.0",
     "passport-kakao": "^1.0.1",
+    "passport-local": "^1.0.0",
     "passport-naver": "^1.0.6",
     "sequelize": "^6.25.3",
     "sequelize-cli": "^6.5.2"

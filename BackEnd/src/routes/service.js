@@ -1,13 +1,77 @@
 "use strict";
 
 const passport = require("passport");
+const bcrypt = require("bcrypt");
 const fs = require("fs");
+
+const User = require("../models/user");
 
 exports.home = (req, res) => {
     fs.readFile("test.html", (error, data) => {
         res.writeHead(200, { "Content-Type": "text/html" });
         res.end(data);
     });
+};
+
+exports.login_local = (req, res) => {
+    passport.authenticate("local", (authError, user, info) => {
+        if (authError) {
+            console.error(authError);
+            return next(authError);
+        }
+
+        //info.message
+        if (!user) {
+            return res.status(404).json({
+                message: info.message,
+                code: 404,
+            });
+        }
+
+        return req.logIn(user, (loginError) => {
+            if (loginError) {
+                console.error(loginError);
+                return next(loginError);
+            }
+            return res.status(200).json({
+                message: "Local login success.",
+                code: 200,
+                user: user,
+            });
+        });
+    })(req, res);
+};
+
+exports.register = async (req, res) => {
+    const { username, email, password, position, interested } = req.body;
+    try {
+        const exUser = await User.findOne({ where: { email } });
+        if (exUser) {
+            return res.status(401).json({
+                message: "Email already exists.",
+                code: 401,
+            });
+        }
+        const hash = await bcrypt.hash(password, 12);
+        await User.create({
+            username: username,
+            email: email,
+            password: hash,
+            position: position,
+            interested: interested,
+        })
+            .then(() => {
+                return res.status(200).json({
+                    message: "Register success.",
+                });
+            })
+            .catch((err) => {
+                return res.status(500).json({ err });
+            });
+    } catch (error) {
+        console.error(error);
+        return next(error);
+    }
 };
 
 exports.login_naver = (req, res) => {
