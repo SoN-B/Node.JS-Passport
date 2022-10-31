@@ -13,7 +13,7 @@ exports.home = (req, res) => {
     });
 };
 
-exports.login_local = (req, res) => {
+exports.login_local = (req, res, next) => {
     passport.authenticate("local", (authError, user, info) => {
         if (authError) {
             console.error(authError);
@@ -39,7 +39,7 @@ exports.login_local = (req, res) => {
                 user: user,
             });
         });
-    })(req, res);
+    })(req, res, next);
 };
 
 exports.register = async (req, res) => {
