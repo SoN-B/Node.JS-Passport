@@ -23,7 +23,7 @@ module.exports = () => {
                         done(null, exUser);
                     } else {
                         const newUser = await User.create({
-                            email: profile._json.kakao_account.email,
+                            email: "KAKAO" + profile._json.kakao_account.email,
                             username: profile.displayName,
                             snsId: profile.id,
                             provider: "kakao",
