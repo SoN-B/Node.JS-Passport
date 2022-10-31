@@ -4,6 +4,8 @@ const NaverStrategy = require("passport-naver").Strategy;
 const passport = require("passport");
 const config = require("config");
 
+const User = require("../models/user");
+
 module.exports = () => {
     passport.use(
         new NaverStrategy(
@@ -12,18 +14,27 @@ module.exports = () => {
                 clientSecret: config.get("naver.clientSecret"),
                 callbackURL: config.get("naver.callbackURL"),
             },
-            function (accessToken, refreshToken, profile, done) {
-                process.nextTick(function () {
-                    var user = {
-                        name: profile.displayName,
-                        email: profile.emails[0].value,
-                        username: profile.displayName,
-                        provider: "naver",
-                        naver: profile._json,
-                    };
-                    console.log("user : ", user);
-                    return done(null, user);
-                });
+            async (accessToken, refreshToken, profile, done) => {
+                console.log("naver profile", profile);
+                try {
+                    const exUser = await User.findOne({
+                        where: { snsId: profile.id, provider: "naver" },
+                    });
+                    if (exUser) {
+                        done(null, exUser);
+                    } else {
+                        const newUser = await User.create({
+                            email: profile.emails[0].value,
+                            username: profile.displayName,
+                            snsId: profile.id,
+                            provider: "naver",
+                        });
+                        done(null, newUser);
+                    }
+                } catch (error) {
+                    console.error(error);
+                    done(error);
+                }
             }
         )
     );
