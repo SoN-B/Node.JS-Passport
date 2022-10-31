@@ -4,16 +4,22 @@ const passport = require("passport");
 const kakao = require("./kakaoStrategy");
 const naver = require("./naverStrategy");
 
+const User = require("../models/user");
+
 module.exports = () => {
-    passport.serializeUser(function (user, done) {
-        done(null, user);
+    passport.serializeUser((user, done) => {
+        done(null, user.id);
     });
 
-    passport.deserializeUser(function (req, user, done) {
+    passport.deserializeUser((req, id, done) => {
         // passport로 로그인 처리 후 해당 정보를 session에 담는다.
-        req.session.sid = user.name;
-        console.log("Session Check :" + req.session.sid);
-        done(null, user);
+        User.findOne({ where: { id } })
+            .then((user) => {
+                req.session.sid = user.username;
+                console.log("Session Check :" + req.session.sid);
+                done(null, user);
+            })
+            .catch((err) => done(err));
     });
 
     kakao();
