@@ -145,6 +145,7 @@ exports.logout = (req, res) => {
     // });
 };
 
+// 비밀번호를 잊어버려, 랜덤 비밀번호 변경을 함. 2차적인, 본인인증과정이 필요함.
 exports.search_password = async (req, res, next) => {
     try {
         const email = req.body.email;
