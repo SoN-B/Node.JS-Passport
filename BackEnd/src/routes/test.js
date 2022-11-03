@@ -21,4 +21,6 @@ router.get("/login/kakao/callback", ctrl.login_kakao_callback);
 
 router.get("/logout", isLoggedIn, ctrl.logout);
 
+router.post("/search/password", isNotLoggedIn, ctrl.search_password);
+
 module.exports = router;
