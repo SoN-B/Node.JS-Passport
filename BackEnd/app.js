@@ -4,6 +4,8 @@
 const express = require("express");
 const app = express();
 
+const fs = require("fs");
+const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const config = require("config");
@@ -11,11 +13,14 @@ const passportConfig = require("./src/passport");
 const passport = require("passport");
 const session = require("express-session");
 
+const accessLogStream = fs.createWriteStream(`${__dirname}/log/access.log`, { flags: "a" });
 const { sequelize } = require("./src/utils/connect");
 
 // 웹세팅
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(morgan("dev")); // 개발할 때, 콘솔에 찍는용도
+app.use(morgan("common", { stream: accessLogStream })); // 로그를 데이터베이스에 저장할 수 있어야함 log -> mysql
 
 app.use(cors());
 
