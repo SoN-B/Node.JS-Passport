@@ -13,7 +13,7 @@ const passportConfig = require("./src/passport");
 const passport = require("passport");
 const session = require("express-session");
 
-const logger = require("./winston");
+const logger = require("./src/functions/winston");
 /* level
 const levels = {
     error: 0, -> 제일 높은거
