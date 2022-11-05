@@ -13,14 +13,24 @@ const passportConfig = require("./src/passport");
 const passport = require("passport");
 const session = require("express-session");
 
-const accessLogStream = fs.createWriteStream(`${__dirname}/log/access.log`, { flags: "a" });
+const logger = require("./winston");
+/* level
+const levels = {
+    error: 0, -> 제일 높은거
+    warn: 1,
+    info: 2,
+    http: 3,
+    verbose: 4,
+    debug: 5,
+    silly: 6 -> 제일 낮은거
+};
+*/
 const { sequelize } = require("./src/utils/connect");
 
 // 웹세팅
+app.use(morgan("common", { stream: logger.stream })); // 로그를 데이터베이스에 저장할 수 있어야함 log -> mysql
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(morgan("dev")); // 개발할 때, 콘솔에 찍는용도
-app.use(morgan("common", { stream: accessLogStream })); // 로그를 데이터베이스에 저장할 수 있어야함 log -> mysql
 
 app.use(cors());
 
@@ -43,7 +53,7 @@ app.use("/", require("./src/routes/test"));
 // 서버 연결
 app.listen(config.get("server.port"), () => {
     // 서버 연결, Port = 5000
-    console.log(`Server Running on ${config.get("server.port")} Port!`);
+    logger.info(`Server Running on ${config.get("server.port")} Port!`);
 });
 
 // DB 연결
