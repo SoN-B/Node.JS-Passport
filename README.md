@@ -8,6 +8,12 @@
 2. 비밀번호 찾기 & 변경 기능
 3. Winston & Morgan 로그관리
 
+## Project ToDo
+
+1. 비밀번호 찾기 & 변경 기능 - 추가 본인인증
+2. 유저 관심목록 추가
+3. API요청별 로그추가
+
 ## Dependency Module
 
 ```
@@ -28,6 +34,7 @@
     "passport-naver": "^1.0.6",
     "sequelize": "^6.25.3",
     "sequelize-cli": "^6.5.2",
-    "winston": "^3.8.2"
-  }
+    "winston": "^3.8.2",
+    "winston-daily-rotate-file": "^4.7.1"
+}
 ```
