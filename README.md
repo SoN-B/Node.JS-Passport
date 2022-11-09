@@ -2,7 +2,7 @@
 
 스낵타임 프로젝트 시작 전 토이 프로젝트
 
-## Project Introduce
+## Project Features
 
 1. Node.JS의 passport 모듈을 이용하여 소셜 로그인/로그아웃 기능을 구현함
 2. 비밀번호 찾기 & 변경 기능
