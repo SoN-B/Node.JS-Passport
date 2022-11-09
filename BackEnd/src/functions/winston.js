@@ -1,7 +1,10 @@
 const config = require("config");
 
+const winstonDaily = require("winston-daily-rotate-file");
 const { createLogger, transports, format } = require("winston");
 const { combine, timestamp, simple, colorize, printf, label } = format;
+
+const logDir = "logs";
 
 const printFormat = printf(({ timestamp, label, level, message }) => {
     //사용자지정포맷
@@ -9,7 +12,7 @@ const printFormat = printf(({ timestamp, label, level, message }) => {
 }); //마지막이 최종 출력포맷이됨
 
 const printLogFormat = {
-    file: combine(
+    default: combine(
         //추가해주고 싶은 포맷들을 결합
         //colorize(), //console에 찍히는 에러에 색상입힘
         //winston.format.simple(), //간단한 형식으로
@@ -22,33 +25,51 @@ const printLogFormat = {
         }),
         printFormat
     ),
-
-    console: combine(colorize(), simple()),
-};
-
-const opts = {
-    file: new transports.File({
-        //log를 파일에저장
-        filename: "access.log",
-        dirname: "./logs",
-        level: "info", //2레벨인데, 다른곳의 2,1,0레벨인 로그들 출력가능
-        format: printLogFormat.file, //format이 file에 저장되기위한 형태
-    }),
-
-    console: new transports.Console({
-        //log를 콘솔로찍음
-        level: "info",
-        format: printLogFormat.console, //format이 console에 찍히기위한 형태
-    }),
 };
 
 const logger = createLogger({
-    transports: [opts.file],
+    format: printLogFormat.default,
+    transports: [
+        // info 레벨 로그를 저장할 파일 설정
+        new winstonDaily({
+            level: "info",
+            datePattern: "YYYY-MM-DD",
+            dirname: logDir,
+            filename: `%DATE%.log`, // file 이름 날짜로 저장
+            maxFiles: 30, // 30일치 로그 파일 저장
+            zippedArchive: true,
+        }),
+        // warn 레벨 로그를 저장할 파일 설정
+        new winstonDaily({
+            level: "warn",
+            datePattern: "YYYY-MM-DD",
+            dirname: logDir + "/warn",
+            filename: `%DATE%.warn.log`, // file 이름 날짜로 저장
+            maxFiles: 30, // 30일치 로그 파일 저장
+            zippedArchive: true,
+        }),
+        // error 레벨 로그를 저장할 파일 설정
+        new winstonDaily({
+            level: "error",
+            datePattern: "YYYY-MM-DD",
+            dirname: logDir + "/error", // error.log 파일은 /logs/error 하위에 저장
+            filename: `%DATE%.error.log`,
+            maxFiles: 30,
+            zippedArchive: true,
+        }),
+    ],
 });
 
 if (config.get("server.state") !== "production") {
     //실제 서비스중인 서버가 아니면
-    logger.add(opts.console);
+    logger.add(
+        new transports.Console({
+            format: combine(
+                colorize({ all: true }), // console 에 출력할 로그 컬러 설정 적용함
+                printFormat // log format 적용
+            ),
+        })
+    );
 } //실제 서비스중인 서버와 개발중인 서버를 구분지을 수 있음
 
 logger.stream = {

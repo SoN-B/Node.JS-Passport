@@ -26,6 +26,7 @@
     "passport-naver": "^1.0.6",
     "sequelize": "^6.25.3",
     "sequelize-cli": "^6.5.2",
-    "winston": "^3.8.2"
+    "winston": "^3.8.2",
+    "winston-daily-rotate-file": "^4.7.1"
   }
 }
