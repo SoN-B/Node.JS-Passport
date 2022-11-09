@@ -38,5 +38,6 @@ module.exports = class Job extends Sequelize.Model {
     // 다른 모델과의 관계
     static associate(db) {
         db.Job.belongsTo(db.Jobcategory, { foreignKey: "categorykey", targetKey: "id", onDelete: "cascade", onUpdate: "cascade" });
+        db.Job.belongsToMany(db.User, { through: "user_interested" });
     }
 };

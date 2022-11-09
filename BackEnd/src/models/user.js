@@ -31,10 +31,6 @@ module.exports = class User extends Sequelize.Model {
                     type: Sequelize.STRING(30),
                     allowNull: true,
                 },
-                interested: {
-                    type: Sequelize.STRING(30),
-                    allowNull: true,
-                },
                 followed: {
                     type: Sequelize.INTEGER,
                     allowNull: false,
@@ -66,5 +62,6 @@ module.exports = class User extends Sequelize.Model {
     static associate(db) {
         db.User.belongsToMany(db.User, { through: "follow", as: "Follower", foreignKey: "followerid" });
         db.User.belongsToMany(db.User, { through: "follow", as: "Following", foreignKey: "followingid" });
+        db.User.belongsToMany(db.Job, { through: "user_interested" });
     }
 };
