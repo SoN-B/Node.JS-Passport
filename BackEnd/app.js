@@ -48,7 +48,8 @@ passportConfig();
 // });
 
 // 라우팅
-app.use("/", require("./src/routes/test"));
+const apiRouter = require("./src/routes");
+app.use("/", apiRouter);
 
 // 서버 연결
 app.listen(config.get("server.port"), () => {
