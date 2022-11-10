@@ -4,6 +4,10 @@ const mailSender = require("../../functions/mail");
 const bcrypt = require("bcrypt");
 
 const User = require("../../models/user");
+const Job = require("../../models/job");
+
+const model = require("../../utils/connect");
+const user_interested = model.sequelize.models.user_interested;
 
 // 비밀번호를 잊어버려, 랜덤 비밀번호 변경을 함. 2차적인, 본인인증과정이 필요함.
 exports.search_password = async (req, res, next) => {
@@ -55,3 +59,34 @@ exports.search_password = async (req, res, next) => {
         });
     }
 };
+
+// -> 지속적인 수정필요
+// exports.interested = async (req, res) => {
+//     let username = req.session.sid;
+//     let jobs = req.body.job;
+
+//     let user = await User.findOne({
+//         attributes: ["id"],
+//         where: { username: username },
+//     });
+
+//     let job = await Job.findOne({
+//         attributes: ["id"],
+//         where: { job: jobs },
+//     });
+
+//     user_interested
+//         .create({
+//             UserId: user.id,
+//             JobId: job.id,
+//         })
+//         .then(() => {
+//             return res.status(200).json({
+//                 code: 200,
+//                 message: "success.",
+//             });
+//         })
+//         .catch((err) => {
+//             return res.status(500).json({ err });
+//         });
+// };

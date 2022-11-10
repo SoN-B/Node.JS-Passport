@@ -21,6 +21,7 @@ module.exports = class Job extends Sequelize.Model {
                 popularity: {
                     type: Sequelize.INTEGER,
                     allowNull: false,
+                    defaultValue: 0,
                 },
             },
             {
