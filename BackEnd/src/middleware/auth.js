@@ -1,4 +1,6 @@
 "use strict";
+
+const logger = require("../functions/winston");
 /* 접근 권한 제어 미들웨어*/
 
 // 로그인 중이면 req.isAuthenticated()가 true, 그렇지 않으면 false > 로그인 여부 판단
@@ -7,6 +9,7 @@ exports.isLoggedIn = (req, res, next) => {
     if (req.isAuthenticated()) {
         next();
     } else {
+        logger.warn("You are not logged in.");
         return res.status(403).json({
             message: "You are not logged in.",
             code: 403,
