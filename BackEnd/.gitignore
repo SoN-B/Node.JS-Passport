@@ -3,3 +3,5 @@ package-lock.json
 default.json
 access.log
 logs
+test.html
+.eslintrc.json
