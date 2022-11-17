@@ -5,3 +5,4 @@ access.log
 logs
 test.html
 .eslintrc.json
+.prettierrc.json
