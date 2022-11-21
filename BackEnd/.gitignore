@@ -6,3 +6,4 @@ logs
 test.html
 .eslintrc.json
 .prettierrc.json
+CHANGELOG.md
