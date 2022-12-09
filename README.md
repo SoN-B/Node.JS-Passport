@@ -30,5 +30,12 @@ RE:SPEC 프로젝트 시작 전 토이 프로젝트
     "sequelize-cli": "^6.5.2",
     "winston": "^3.8.2",
     "winston-daily-rotate-file": "^4.7.1"
+},
+"devDependencies": {
+    "eslint": "^8.27.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "prettier": "2.7.1",
+    "standard-version": "^9.5.0"
 }
 ```
