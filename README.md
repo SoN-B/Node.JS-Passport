@@ -1,18 +1,12 @@
-# Node.JS-Counseling
+# Node.JS-Passport
 
-스낵타임 프로젝트 시작 전 토이 프로젝트
+RE:SPEC 프로젝트 시작 전 토이 프로젝트
 
 ## Project Features
 
-1. Node.JS의 passport 모듈을 이용하여 소셜 로그인/로그아웃 기능을 구현함
-2. 비밀번호 찾기 & 변경 기능
-3. Winston & Morgan 로그관리
-
-## Project ToDo
-
-1. 비밀번호 찾기 & 변경 기능 - 추가 본인인증
-2. 유저 관심목록 추가
-3. API요청별 로그추가
+1. **passport**: 소셜 로그인/로그아웃
+2. **nodemailer**: 비밀번호 찾기 & 변경
+3. **winston & morgan**: 로그관리
 
 ## Dependency Module
 
